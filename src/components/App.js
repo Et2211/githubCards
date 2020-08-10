@@ -1,0 +1,36 @@
+import React from 'react';
+import './../App.css';
+import Form from './Form'
+import CardList from './CardList'
+
+class App extends React.Component {
+  state = {
+    profiles: [],
+  };
+  addNewProfile = (profileData) => {
+  	this.setState(prevState => ({
+    	profiles: [...prevState.profiles, profileData],
+    }));
+  };
+
+  removeProfile = (id) => {
+    this.setState(prevState => (
+      {
+      profiles: prevState.profiles.filter(profile => (profile.id !== id))
+    }))
+ 
+  }
+  
+  
+  render() {
+  	return (
+    	<div>
+    	  <div className="header">{this.props.title}</div>
+        <Form onSubmit={this.addNewProfile} />
+        <CardList profiles={this.state.profiles} removeProfile={this.removeProfile}/>
+    	</div>
+    );
+  }	
+}
+
+export default App;
